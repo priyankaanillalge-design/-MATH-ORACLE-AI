@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#10131c">
+	<meta name="description" content="Math Oracle AI answers common math questions, looks up general knowledge with Wikipedia, and calculates arithmetic expressions.">
+	<meta name="robots" content="index,follow">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Math Oracle AI">
+	<meta property="og:description" content="Ask general knowledge questions or explore math with Math Oracle AI.">
+	<title>Math Oracle AI</title>
+	<script type="application/ld+json">
+		{
+			"@context":"https://schema.org",
+			"@type":"WebApplication",
+			"name":"Math Oracle AI",
+			"applicationCategory":"EducationalApplication",
+			"operatingSystem":"Any",
+			"description":"Answers common math questions, looks up general knowledge with Wikipedia, and calculates arithmetic expressions."
+		}
+	</script>
+	<style>
+		:root{color-scheme:dark;--bg:#10131c;--panel:#181c28;--line:#292f40;--text:#f4f5fb;--muted:#a1a8bb;--accent:#a994ff;--green:#92e5c1}
+		*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#2b2850 0,transparent 55%),var(--bg);color:var(--text);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;display:flex;justify-content:center;padding:36px 18px}
+		.app{width:min(100%,760px);display:flex;flex-direction:column;min-height:calc(100vh - 72px)}header{display:flex;align-items:center;gap:14px;padding:8px 4px 28px}.logo{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,#c1a8ff,#7865df);color:#171326;font-size:25px;font-weight:800;box-shadow:0 8px 28px #8872ee40}h1{font-size:19px;margin:0;letter-spacing:.01em}header p{margin:2px 0 0;color:var(--muted);font-size:13px}.status{margin-left:auto;border:1px solid #30394a;border-radius:999px;padding:6px 10px;color:var(--green);font-size:12px}.status:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:7px}
+		.intro{padding:27px 28px 25px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(135deg,#1d2030,#171a25);margin-bottom:20px}.eyebrow{color:var(--accent);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.13em}.intro h2{font-size:clamp(25px,5vw,36px);line-height:1.15;margin:10px 0}.intro p{margin:0;color:var(--muted)}.suggestions{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.suggestions[hidden]{display:none}.suggestions button{border:1px solid #373c50;background:#202434;color:#d9dced;border-radius:999px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer}.suggestions button:hover{border-color:var(--accent);color:white}
+		.chat{flex:1;min-height:220px;max-height:48vh;overflow:auto;padding:6px 2px 18px;display:flex;flex-direction:column;gap:14px}.message{max-width:85%;padding:13px 16px;border:1px solid var(--line);border-radius:16px;background:var(--panel);white-space:pre-wrap;overflow-wrap:anywhere}.message.user{align-self:flex-end;background:#302b4d;border-color:#51477b}.message.assistant{align-self:flex-start}.message .label{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.message strong{color:var(--green)}.message a{color:var(--accent)}
+		.history-actions{display:flex;justify-content:flex-end;margin-top:8px}.download-button{border:1px solid #353a4d;border-radius:9px;background:transparent;color:var(--text);font:inherit;font-size:13px;padding:8px 12px;cursor:pointer}.download-button:hover{border-color:var(--accent);color:white}.download-button:focus-visible{outline:2px solid white;outline-offset:3px}
+		form{display:flex;gap:10px;padding:10px;border:1px solid #353a4d;border-radius:17px;background:#191c28;box-shadow:0 12px 40px #0003}.input-wrap{flex:1;display:flex;align-items:center;gap:10px;padding:0 8px}.input-wrap span{color:var(--accent);font-size:20px}input:not([type="checkbox"]){width:100%;border:0;outline:0;background:transparent;color:var(--text);font:inherit;padding:9px 0}input::placeholder{color:#7f879a}.recommendations-control{display:flex;align-items:center;gap:8px;margin-top:16px;color:var(--muted);font-size:13px;cursor:pointer}.recommendations-control input{width:16px;height:16px;margin:0;accent-color:var(--accent)}form button{border:0;border-radius:11px;background:var(--accent);color:#171326;font-weight:750;font-size:14px;padding:0 19px;cursor:pointer}form button:hover{background:#c1b2ff}form button:focus-visible,.suggestions button:focus-visible,input:focus-visible{outline:2px solid white;outline-offset:3px}.note{text-align:center;color:#81889a;font-size:12px;margin:12px 0 0}
+		@media(max-width:520px){body{padding:20px 14px}.app{min-height:calc(100vh - 40px)}.intro{padding:22px 19px}.status{font-size:0}.status:before{margin:0}.chat{max-height:45vh}.message{max-width:94%}form button{padding:0 14px}.history-actions{justify-content:stretch}.download-button{width:100%;min-height:44px}}
+	</style>
+</head>
+<body>
+	<main class="app">
+		<header>
+			<div class="logo" aria-hidden="true">∑</div>
+			<div><h1>Math Oracle AI</h1><p>Your friendly guide to the world of math</p></div>
+			<span class="status">Ready to help</span>
+		</header>
+		<section class="intro" aria-labelledby="welcome-title">
+			<span class="eyebrow" id="explore-tagline">Ask · explore · understand</span>
+			<h2 id="welcome-title">What would you like to solve?</h2>
+			<p>Ask any general knowledge question or enter a math expression.</p>
+			<label class="recommendations-control"><input id="recommendations-toggle" type="checkbox" aria-controls="suggestions" checked>Show recommendations</label>
+			<label class="recommendations-control"><input id="tagline-toggle" type="checkbox" aria-controls="explore-tagline" checked>Show tagline</label>
+			<div class="suggestions" id="suggestions" aria-label="Example questions">
+				<button type="button" data-prompt="Hi">Hi</button>
+				<button type="button" data-prompt="Hello, how are you?">Hello, how are you?</button>
+				<button type="button" data-prompt="What is algebra?">What is algebra?</button>
+				<button type="button" data-prompt="What is pi?">What is pi?</button>
+				<button type="button" data-prompt="What is a prime number?">What is a prime number?</button>
+				<button type="button" data-prompt="38 + 47">38 + 47</button>
+				<button type="button" data-prompt="125 + 375">125 + 375</button>
+				<button type="button" data-prompt="(18 + 6) × 4">(18 + 6) × 4</button>
+				<button type="button" data-prompt="144 / 12 + 7">144 ÷ 12 + 7</button>
+				<button type="button" data-prompt="2^8">What is 2 to the power of 8?</button>
+			</div>
+		</section>
+		<section class="chat" id="chat" aria-live="polite" aria-label="Conversation">
+			<div class="message assistant"><span class="label">Math Oracle</span>Hi! Ask a general knowledge or math question, or enter an arithmetic expression.</div>
+		</section>
+		<form id="ask-form">
+			<div class="input-wrap"><span aria-hidden="true">⌕</span><input id="question" autocomplete="off" placeholder="Ask a general knowledge question…" aria-label="General knowledge question or math expression" required></div>
+			<button type="submit">Ask&nbsp; ↗</button>
+		</form>
+		<div class="history-actions"><button class="download-button" id="download-history" type="button">Download history</button></div>
+		<p class="note">General knowledge searches use Wikipedia and require an internet connection.</p>
+	</main>
+	<script>
+		// A small arithmetic parser avoids evaluating user input as JavaScript.
+		function calculate(source){
+			const expression=source.replace(/[×÷−]/g,symbol=>({"×":"*","÷":"/","−":"-"})[symbol]);
+			const tokens=expression.match(/(?:\d+(?:\.\d*)?|\.\d+)|[()+\-*/^]/g)||[];
+			if(!tokens.length||tokens.join("")!==expression.replace(/\s/g,""))throw Error("Please enter a valid arithmetic expression.");
+			let i=0;
+			function atom(){const t=tokens[i++];if(t==="+")return atom();if(t==="-")return -atom();if(t==="("){const n=expr();if(tokens[i++]!==")")throw Error("Please close your parentheses.");return n}if(t===undefined||!Number.isFinite(Number(t)))throw Error("Please enter a valid arithmetic expression.");return Number(t)}
+			function power(){let n=atom();if(tokens[i]==="^"){i++;n=Math.pow(n,power())}return n}
+			function product(){let n=power();while(tokens[i]==="*"||tokens[i]==="/"){const op=tokens[i++],r=power();n=op==="*"?n*r:n/r}return n}
+			function expr(){let n=product();while(tokens[i]==="+"||tokens[i]==="-"){const op=tokens[i++],r=product();n=op==="+"?n+r:n-r}return n}
+			const result=expr();if(i!==tokens.length)throw Error("I couldn’t read that expression. Try using numbers and arithmetic symbols.");if(!Number.isFinite(result))throw Error("That calculation does not have a finite result.");return result;
+		}
+		function answerMathQuestion(question){
+			const text=question.toLowerCase().replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();
+			if(/\bpythagorean theorem\b/.test(text))return "The Pythagorean theorem says that in a right triangle, a^2 + b^2 = c^2, where c is the hypotenuse.";
+			if(/\bprime numbers?\b/.test(text))return "A prime number is a whole number greater than 1 with exactly two positive factors: 1 and itself. For example, 2, 3, 5, and 7 are prime.";
+			if(/\bpi\b/.test(text))return "Pi (π) is the ratio of a circle's circumference to its diameter. It is approximately 3.14159.";
+			if(/\balgebra\b/.test(text))return "Algebra uses numbers, symbols, and variables to represent relationships and solve problems. For example, x + 3 = 7 has the solution x = 4.";
+			if(/\bgeometry\b/.test(text))return "Geometry is the study of shapes, sizes, angles, and the properties of space.";
+			if(/\bfractions?\b/.test(text))return "A fraction represents part of a whole. Its numerator is the number of parts you have, and its denominator is the number of equal parts in the whole.";
+			if(/\bpercent(age)?\b/.test(text))return "A percent means a number out of 100. For example, 25% means 25 out of 100, or one quarter.";
+			if(/\bprobability\b/.test(text))return "Probability describes how likely an event is. It ranges from 0 (impossible) to 1 (certain), and can also be written as a percentage.";
+			if(/\b(mean|average|median|mode)\b/.test(text))return "Mean (average) is the sum divided by the count, median is the middle value after sorting, and mode is the most frequent value.";
+			if(/\bsquare roots?\b/.test(text))return "A square root of a number is a value that, when multiplied by itself, gives that number. For example, the square root of 25 is 5.";
+			if(/\bequations?\b/.test(text))return "An equation says that two expressions are equal. Solving it means finding the value of any unknown that makes the equality true.";
+			if(/\b(math|mathematics)\b/.test(text))return "Mathematics is the study of numbers, patterns, shapes, and logical relationships. It helps describe and solve problems in everyday life and science.";
+			return null;
+		}
+		async function searchKnowledge(question){
+			const searchTerm=question.replace(/^(who|what|where|when|why|how)\s+(is|are|was|were|did|does|do)\s+/i,"").replace(/[?]/g,"").trim()||question;
+			const searchParams=new URLSearchParams({action:"query",list:"search",srsearch:searchTerm,srlimit:"1",format:"json",origin:"*"});
+			const searchResponse=await fetch("https://en.wikipedia.org/w/api.php?"+searchParams);
+			if(!searchResponse.ok)throw Error("Knowledge search failed.");
+			const searchData=await searchResponse.json(),result=searchData.query?.search?.[0];
+			if(!result)return null;
+			const pageParams=new URLSearchParams({action:"query",prop:"extracts",exintro:"1",explaintext:"1",titles:result.title,format:"json",origin:"*"});
+			const pageResponse=await fetch("https://en.wikipedia.org/w/api.php?"+pageParams);
+			if(!pageResponse.ok)throw Error("Knowledge lookup failed.");
+			const pageData=await pageResponse.json(),page=Object.values(pageData.query?.pages||{})[0];
+			if(!page?.extract)return null;
+			const sentences=page.extract.match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[page.extract];
+			return {text:page.title+": "+sentences.slice(0,3).join(" ").trim(),url:"https://en.wikipedia.org/wiki/"+encodeURIComponent(page.title.replace(/ /g,"_"))};
+		}
+		const chat=document.getElementById("chat"),input=document.getElementById("question");
+		document.getElementById("download-history").addEventListener("click",()=>{
+			const messages=Array.from(chat.querySelectorAll(".message")).map(message=>{
+				const label=message.querySelector(".label")?.textContent||"Math Oracle";
+				const content=message.cloneNode(true);
+				content.querySelector(".label")?.remove();
+				return label+":\n"+content.textContent.trim();
+			});
+			const blob=new Blob([messages.join("\n\n")],{type:"text/plain;charset=utf-8"});
+			const url=URL.createObjectURL(blob),link=document.createElement("a");
+			link.href=url;
+			link.download="math-oracle-history-"+new Date().toISOString().slice(0,10)+".txt";
+			document.body.appendChild(link);
+			link.click();
+			link.remove();
+			setTimeout(()=>URL.revokeObjectURL(url),1000);
+		});
+		const recommendationsToggle=document.getElementById("recommendations-toggle"),suggestions=document.getElementById("suggestions");
+		const taglineToggle=document.getElementById("tagline-toggle"),tagline=document.getElementById("explore-tagline");
+		recommendationsToggle.addEventListener("change",()=>{suggestions.hidden=!recommendationsToggle.checked});
+		taglineToggle.addEventListener("change",()=>{tagline.hidden=!taglineToggle.checked});
+		function addMessage(text,who){const node=document.createElement("div");node.className="message "+who;const label=document.createElement("span");label.className="label";label.textContent=who==="user"?"You":"Math Oracle";node.append(label,document.createTextNode(text));chat.appendChild(node);chat.scrollTop=chat.scrollHeight;return node}
+		async function ask(question){addMessage(question,"user");input.value="";input.focus();const greeting=question.trim().toLowerCase().replace(/[,.!?]/g,"").replace(/\s+/g," ");if(greeting==="hi"||greeting==="hello"||greeting==="hello how are you"){addMessage(greeting==="hello how are you"?"I'm doing well, thanks for asking. I can help with math questions and calculations.":"Hi! I can help with math questions and calculations.","assistant");return}const explanation=answerMathQuestion(question);if(explanation){addMessage(explanation,"assistant");return}try{const answer=calculate(question);addMessage("The answer is "+Number(answer.toPrecision(12))+".","assistant");return}catch(error){if(!/[a-z]/i.test(question)){addMessage(error.message,"assistant");return}}const response=addMessage("Searching Wikipedia…","assistant");try{const result=await searchKnowledge(question);if(!result){response.lastChild.textContent="I couldn't find a clear Wikipedia article for that question. Try rephrasing it.";return}response.lastChild.textContent=result.text;const source=document.createElement("a");source.href=result.url;source.target="_blank";source.rel="noopener noreferrer";source.textContent="Source: Wikipedia";response.append(document.createTextNode(" "),source)}catch(error){response.lastChild.textContent="I couldn't reach Wikipedia. Check your internet connection and try again."}}
+		document.getElementById("ask-form").addEventListener("submit",event=>{event.preventDefault();if(input.value.trim())ask(input.value.trim())});
+		document.querySelectorAll("[data-prompt]").forEach(button=>button.addEventListener("click",()=>ask(button.dataset.prompt)));
+	</script>
+</body>
+</html>
